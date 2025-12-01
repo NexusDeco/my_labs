@@ -1,82 +1,123 @@
 #include <iostream>
-
+#include <climits>
 using namespace std;
 
-int main()
-{
-    int n;
-    cout << "Write n (1-10) = ";
-    cin >> n;
-
-    if ((n<1)||(n>10)){
-        cout << "Mistake, need to be from 1 to 10";
-        return 0;
+int getElement(int* data, int n, int i, int j) {
+    if ((i + j) % 2 == 1) {
+        return 1;
+    } else {
+        return data[(i * n + j) / 2];
     }
+}
 
-    int** m = new int*[n];
-    for (int i = 0; i<n; i++){
-        m[i] = new int[n];
-    }
-
-    for (int i = 0; i<n; i++){
-        for (int j = 0; j<n; j++){
-            if ((i+j) % 2 == 1){
-                m[i][j] = 1;
-            } else {
-                cout << "m[" << i << "]" << "[" << j << "] = ";
-                cin >> m[i][j];
-            }
-        }
-    }
-
-    for (int i = 0; i < n; i++){
-        for (int j = 0; j < n; j++){
-            cout << m[i][j] << " ";
+void printMatrix(int* data, int n) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cout << getElement(data, n, i, j) << " ";
         }
         cout << endl;
     }
+}
 
-    int s{};
-    for (int i = 0; i < n; i++){
-        for (int j = 0; j < n; j++){
-            if (m[i][j]==0){
+int sumRowsWithoutZeros(int* data, int n) {
+    int totalSum = 0;
+
+    for (int i = 0; i < n; i++) {
+        bool hasZero = false;
+        int rowSum = 0;
+
+        for (int j = 0; j < n; j++) {
+            int element = getElement(data, n, i, j);
+            if (element == 0) {
+                hasZero = true;
                 break;
-            }else{
-                s+= m[i][j];
             }
-
+            rowSum += element;
+        }
+        if (!hasZero) {
+            totalSum += rowSum;
         }
     }
 
-    cout << "Sum of elements in rows without zeros: " << s << endl;
+    return totalSum;
+}
 
-    int d = 1;
-    for (int i = 1; i < n; i++){
-        int p = 1;
-        for (int j = 0; j < n-i; j++){
-            p *= m[i+j][j];
-        }
-        if (p > d){
-            d = p;
-        }
-    }
-    for (int j = 1; j < n; j++){
-        int p = 1;
-        for (int i = 0; i < n-j; i++){
-            p *= m[i][j+i];
-        }
-        if (p > d){
-            d = p;
-        }
-    }
-    if (n == 1){
-        cout << "There are no diagonals to calculate the product" << endl;
-    }
-    cout << "Maximum product of among of current diagonals: " << d << endl;
+int maxProductOfDiagonals(int* data, int n) {
+    if (n <= 1) return 0;
+    
+    int maxProduct = INT_MIN;
+    bool first = true;
 
-    for (int i = 0; i<n; i++){
-        delete[] m[i];
+    for (int k = 1; k < n; k++) {
+        int product = 1;
+        for (int i = 0; i < n - k; i++) {
+            product *= getElement(data, n, i, i + k);
+        }
+        if (first || product > maxProduct) {
+            maxProduct = product;
+            first = false;
+        }
     }
-    delete[] m;
+
+    for (int k = 1; k < n; k++) {
+        int product = 1;
+        for (int i = 0; i < n - k; i++) {
+            product *= getElement(data, n, i + k, i);
+        }
+        if (first || product > maxProduct) {
+            maxProduct = product;
+            first = false;
+        }
+    }
+
+    return maxProduct;
+}
+
+int main() {
+    int n;
+    cout << "Enter matrix size n (1-10): ";
+    cin >> n;
+
+    if (n < 1 || n > 10) {
+        cout << "Error: n must be between 1 and 10" << endl;
+        return 1;
+    }
+
+    int elementsCount = (n * n + 1) / 2;
+    int* matrixData = new int[elementsCount];
+
+    for (int i = 0; i < elementsCount; i++) {
+        matrixData[i] = 0;
+    }
+
+    cout << "Enter matrix elements:" << endl;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if ((i + j) % 2 == 0) {
+                cout << "m[" << i << "][" << j << "] = ";
+                cin >> matrixData[(i * n + j) / 2];
+            }
+        }
+    }
+
+    cout << "\nMatrix:" << endl;
+    printMatrix(matrixData, n);
+
+    int sum = sumRowsWithoutZeros(matrixData, n);
+    if (sum != 0){
+        cout << "Sum of elements in rows without zeros: " << sum << endl;
+    }
+    else{
+        cout << "No rows to calculate sum" << endl;
+    }    
+
+    if (n == 1) {
+        cout << "No diagonals to calculate product" << endl;
+    } else {
+        int maxProd = maxProductOfDiagonals(matrixData, n);
+        cout << "Maximum product among diagonals parallel to main: " << maxProd << endl;
+    }
+
+    delete[] matrixData;
     return 0;
 }
