@@ -16,7 +16,7 @@ static int gcd(int a, int b) {
 
 void Fraction::reduce() {
     if (denominator == 0) {
-        throw std::invalid_argument("Знаменатель не может быть равен 0");
+        throw std::invalid_argument("Denominator cannot be zero");
     }
     
     int g = gcd(numerator, denominator);
@@ -33,7 +33,7 @@ void Fraction::reduce() {
 
 Fraction::Fraction(int num, int den) : numerator(num), denominator(den) {
     if (den == 0) {
-        throw std::invalid_argument("Знаменатель не может быть равен 0");
+        throw std::invalid_argument("Denominator cannot be zero");
     }
     reduce();
 }
@@ -62,7 +62,7 @@ Fraction Fraction::multiply(const Fraction& other) const {
 
 Fraction Fraction::divide(const Fraction& other) const {
     if (other.numerator == 0) {
-        throw std::invalid_argument("Деление на ноль");
+        throw std::invalid_argument("Division by zero");
     }
     int n = numerator * other.denominator;
     int d = denominator * other.numerator;
