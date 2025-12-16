@@ -20,8 +20,6 @@ public:
     BaseStudent(const char* name, int course, int group, int recordBook);
     BaseStudent(const BaseStudent& other);
     virtual ~BaseStudent();
-    
-    BaseStudent& operator=(const BaseStudent& other) = delete;
 
     int getStudentID() const { return studentID; }
     const char* getFullName() const { return fullName; }
