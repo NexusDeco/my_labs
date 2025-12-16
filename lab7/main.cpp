@@ -58,15 +58,15 @@ int main() {
         int firstSessionGrades2[4] = {9, 10, 8, 9};
         StudentFirstSession student3("Sidorov Alexey", 1, 102, 1003, firstSessionGrades2);
         
-        int secondSessionGrades1[4] = {7, 8, 6, 7};
-        int secondSessionGrades2[5] = {8, 9, 7, 8, 9};
+        int firstSessionGrades3[4] = {7, 8, 6, 7};
+        int secondSessionGrades1[5] = {8, 9, 7, 8, 9};
         StudentSecondSession student4("Kozlova Maria", 1, 101, 1004, 
-                                     secondSessionGrades1, secondSessionGrades2);
+                                     firstSessionGrades3, secondSessionGrades1);
         
-        int secondSessionGrades3[4] = {10, 10, 9, 10};
-        int secondSessionGrades4[5] = {9, 10, 10, 9, 10};
+        int firstSessionGrades4[4] = {10, 10, 9, 10};
+        int secondSessionGrades2[5] = {9, 10, 10, 9, 10};
         StudentSecondSession student5("Smirnov Dmitry", 1, 102, 1005,
-                                     secondSessionGrades3, secondSessionGrades4);
+                                     firstSessionGrades4, secondSessionGrades2);
         
         std::cout << "=== All Students Information ===\n";
         std::cout << "Student 1 (BaseStudent):\n" << student1 << std::endl;
@@ -123,13 +123,13 @@ int main() {
         
         std::cout << "\n=== Exception Handling Demonstration ===\n";
         try {
-            student2.setFirstSessionGrade(3, 5);
+            student2.setFirstSessionGrade(10, 5);
         } catch (const std::out_of_range& e) {
             std::cout << "Caught exception: " << e.what() << std::endl;
         }
         
         try {
-            student4.setSecondSessionGrade(2, 10);
+            student4.setSecondSessionGrade(2, 15);
         } catch (const std::invalid_argument& e) {
             std::cout << "Caught exception: " << e.what() << std::endl;
         }
