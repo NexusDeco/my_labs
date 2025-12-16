@@ -41,12 +41,10 @@ void StudentSecondSession::setSecondSessionGrade(int index, int grade) {
 double StudentSecondSession::calculateAverage() const {
     double sum = 0;
     
-    // Add first session grades
     for (int i = 0; i < FIRST_SESSION_COURSES; ++i) {
         sum += firstSessionGrades[i];
     }
     
-    // Add second session grades
     for (int i = 0; i < SECOND_SESSION_COURSES; ++i) {
         sum += secondSessionGrades[i];
     }
