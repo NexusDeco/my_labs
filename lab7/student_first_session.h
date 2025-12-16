@@ -14,12 +14,10 @@ public:
                        const int grades[FIRST_SESSION_COURSES]);
     StudentFirstSession(const StudentFirstSession& other);
     
-    // Access methods for grades
     int getFirstSessionGrade(int index) const;
     void setFirstSessionGrade(int index, int grade);
     const int* getAllFirstSessionGrades() const { return firstSessionGrades; }
     
-    // Overridden methods
     double calculateAverage() const override;
     double getFirstSessionAverage() const override;
     bool hasFirstSession() const override { return true; }
