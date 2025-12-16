@@ -15,12 +15,10 @@ public:
                         const int secondGrades[SECOND_SESSION_COURSES]);
     StudentSecondSession(const StudentSecondSession& other);
     
-    // Access methods for grades
     int getSecondSessionGrade(int index) const;
     void setSecondSessionGrade(int index, int grade);
     const int* getAllSecondSessionGrades() const { return secondSessionGrades; }
     
-    // Overridden methods
     double calculateAverage() const override;
     bool hasSecondSession() const override { return true; }
     
