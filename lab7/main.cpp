@@ -50,7 +50,6 @@ double calculateOverallAverage(BaseStudent** studentsArray, int arraySize) {
 
 int main() {
     try {
-        // Create students
         BaseStudent student1("Ivanov Ivan", 1, 101, 1001);
         
         int firstSessionGrades1[4] = {8, 9, 7, 8};
@@ -69,7 +68,6 @@ int main() {
         StudentSecondSession student5("Smirnov Dmitry", 1, 102, 1005,
                                      secondSessionGrades3, secondSessionGrades4);
         
-        // Display all students
         std::cout << "=== All Students Information ===\n";
         std::cout << "Student 1 (BaseStudent):\n" << student1 << std::endl;
         std::cout << "Student 2 (After First Session):\n" << student2 << std::endl;
@@ -77,7 +75,6 @@ int main() {
         std::cout << "Student 4 (After Second Session):\n" << student4 << std::endl;
         std::cout << "Student 5 (After Second Session):\n" << student5 << std::endl;
         
-        // Demonstrate set methods
         std::cout << "\n=== Demonstrating Set Methods ===\n";
         student1.setFullName("Ivanov I.I.");
         student1.setCurrentCourse(2);
@@ -88,11 +85,9 @@ int main() {
         std::cout << student1 << std::endl;
         std::cout << student2 << std::endl;
         
-        // Create array of pointers for group calculations
         BaseStudent* allStudents[] = {&student1, &student2, &student3, &student4, &student5};
         int totalStudents = sizeof(allStudents) / sizeof(allStudents[0]);
         
-        // Calculate group averages
         std::cout << "\n=== Group Averages ===\n";
         std::cout << std::fixed << std::setprecision(2);
         
@@ -108,12 +103,10 @@ int main() {
         std::cout << "Group 102 after two sessions: " 
                   << calculateGroupAverageAfterSecondSession(allStudents, totalStudents, 102) << std::endl;
         
-        // Calculate overall average
         std::cout << "\n=== Overall Average ===\n";
         std::cout << "Overall average for all students with grades: " 
                   << calculateOverallAverage(allStudents, totalStudents) << std::endl;
         
-        // Demonstrate polymorphism
         std::cout << "\n=== Polymorphism Demonstration ===\n";
         for (int i = 0; i < totalStudents; ++i) {
             std::cout << allStudents[i]->getFullName() << ": ";
@@ -128,16 +121,15 @@ int main() {
             std::cout << ", Average: " << allStudents[i]->calculateAverage() << std::endl;
         }
         
-        // Demonstrate exception handling
         std::cout << "\n=== Exception Handling Demonstration ===\n";
         try {
-            student2.setFirstSessionGrade(10, 5); // Invalid index
+            student2.setFirstSessionGrade(3, 5);
         } catch (const std::out_of_range& e) {
             std::cout << "Caught exception: " << e.what() << std::endl;
         }
         
         try {
-            student4.setSecondSessionGrade(2, 15); // Invalid grade
+            student4.setSecondSessionGrade(2, 10);
         } catch (const std::invalid_argument& e) {
             std::cout << "Caught exception: " << e.what() << std::endl;
         }
